@@ -1,0 +1,26 @@
+body{
+    position: relative;
+    background : url(icecream.jpg);
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+    text-align: center;
+    color: aliceblue;
+    height: 100vh;
+    overflow: hidden;
+}
+body::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: 0;
+    width: 100vw;
+    height: 100vw;
+    background: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+    pointer-events: none;
+    z-index: -1;
+}
+.process{
+    z-index: 5 !important;
+    margin-top: 20%;
+}

@@ -5,7 +5,9 @@ let stocks = {
   toppings: ["chocolate", "cherries", "sprinkles"],
 };
 
+
 let is_shop_open = true;
+const process = document.querySelector(".process");
 
 const order = (time, work) => {
   return new Promise((resolve, reject) => {
@@ -14,51 +16,65 @@ const order = (time, work) => {
         resolve(work());
       }, time);
     } else {
-      reject(console.log("Our shop is closed! Sorry for inconvenience."));
+      reject(
+        setTimeout(()=>{
+           process.innerHTML = "Our shop is closed! Sorry for inconvenience.";
+        },0))
     }
   });
 };
 
+//promise chain
 order(2000, () => {
-  console.log(`${stocks.Fruits[0]} was selected.`);
+  process.innerHTML = `${stocks.Fruits[0]} was selected.`
 })
 .then(() => {
-    return order(0, ()=>{
-        console.log("The production has been started!");
+    return order(1000, ()=>{
+       process.innerHTML= "The production has been started!";
     })
 })
 .then(()=>{
     return order(3000, ()=>{
-        console.log("The fruits has been chopped for delicious icecream.");
-    })
-})
-.then(()=>{
-    return order(1000, ()=>{
-        console.log(`${stocks.liquid[0]} and ${stocks.liquid[1]} are added for that refreshing flavor. `);
-    })
-})
-.then(()=>{
-    return order(1000,()=>{
-        console.log("The machine has started. Be ready!!");
-
-    })
-})
-.then(()=>{
-    return order(2000,()=>{
-        console.log(`Icecream is placed on ${stocks.holder[1]}. Almost there hold on!`);
+       process.innerHTML= "The fruits has been chopped for delicious icecream.";
     })
 })
 .then(()=>{
     return order(2000, ()=>{
-        console.log(`Alot ${stocks.toppings[1]} and ${stocks.toppings[2]} were added as toppings, Yummmm MOUTHWATERING!`);
+       process.innerHTML= `${stocks.liquid[0]} and ${stocks.liquid[1]} are added for that refreshing flavor. `;
     })
 })
 .then(()=>{
     return order(2000,()=>{
-        console.log("Your delicious ICECREAM  is here!!! Enjoyy !!");                            
+       process.innerHTML= "The machine has started. Be ready!!";
+
+    })
+})
+.then(()=>{
+    return order(3000,()=>{
+       process.innerHTML= `Icecream is placed on ${stocks.holder[1]}. Almost there hold on!`;
+    })
+})
+.then(()=>{
+    return order(2000, ()=>{
+       process.innerHTML= `Alot ${stocks.toppings[1]} and ${stocks.toppings[2]} were added as toppings, Yummmm MOUTHWATERING!`;
+    })
+})
+.then(()=>{
+    return order(2000,()=>{
+       process.innerHTML= "Your delicious ICECREAM  is here!!! Enjoyy !!";                            
     })
 })
 
+//error handling
+.catch(()=>{
+    process.innerHTML= `${stocks.Fruits[0]} was selected. Customer left!`;
+})
+
+.finally(()=>{
+    setTimeout(()=>{
+        process.innerHTML = "Day ended, Shop is closed.";
+    },2000)
+})
 
 
 // let order = (Fruit_name, call_production) => {
